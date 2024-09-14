@@ -1,23 +1,22 @@
 package com.example.instagram;
 
-import android.annotation.SuppressLint;
-import android.app.Fragment;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
 
+import com.example.instagram.fragment.profileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import fragment.homeFragment;
-import fragment.notificationFragment;
-import fragment.searchFragment;
+import com.example.instagram.fragment.HomeFragment;
+import com.example.instagram.fragment.notificationFragment;
+import com.example.instagram.fragment.searchFragment;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
@@ -43,18 +44,23 @@ public class MainActivity extends AppCompatActivity {
                     int itemId = item.getItemId();
 
                     if(itemId == R.id.nav_home){
-                        selectedFragment = new homeFragment();
+                       selectedFragment = new HomeFragment();
                     }else if (itemId == R.id.nav_search){
                         selectedFragment = new searchFragment();
                     } else if (itemId == R.id.nav_add) {
                         selectedFragment = null;
                         startActivity(new Intent(MainActivity.this,PostActivity.class));
-
                     } else if (itemId == R.id.nav_reels) {
                         selectedFragment = new notificationFragment();
-
                     }else if (itemId == R.id.nav_profile) {
-                        selectedFragment = new homeFragment();
+                        SharedPreferences.Editor editor = getSharedPreferences("PREFS",MODE_PRIVATE).edit();
+                        editor.putString("profileid", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                        editor.apply();
+                        selectedFragment = new profileFragment();
+                    }
+
+                    if(selectedFragment != null){
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
 
                     }
 

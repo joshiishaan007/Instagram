@@ -7,4 +7,9 @@
     android:layout_height="match_parent"
     tools:context=".PostActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="post hello"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

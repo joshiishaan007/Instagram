@@ -1,4 +1,4 @@
-package fragment;
+package com.example.instagram.fragment;
 
 import android.os.Bundle;
 
