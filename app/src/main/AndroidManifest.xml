@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Instagram"
         tools:targetApi="34">
         <activity
+            android:name=".PostActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
