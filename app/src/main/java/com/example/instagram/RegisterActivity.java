@@ -19,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -37,6 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
     DatabaseReference reference;
     ProgressDialog progressDialog;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
         register = findViewById(R.id.register);
         text_login = findViewById(R.id.text_login);
 
-        auth = FirebaseAuth.getInstance();
+//        auth = FirebaseAuth.getInstance();
 
         text_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +93,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void register (String username,String fullname,String email,String password){
+        auth = FirebaseAuth.getInstance();
         auth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
