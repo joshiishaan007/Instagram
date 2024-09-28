@@ -31,8 +31,10 @@ android {
 
 dependencies {
 
-   // implementation libs.support.v4
-   // implementation libs.support.design
+    implementation libs.hdodenhof.circleimageview
+    implementation libs.glide
+
+//    implementation libs.theartofdev.android.image.cropper
 
     implementation libs.appcompat
     implementation libs.material

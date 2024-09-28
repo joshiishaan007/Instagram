@@ -108,8 +108,8 @@ public class RegisterActivity extends AppCompatActivity {
                             hashmap.put("id",userid);
                             hashmap.put("username",username.toLowerCase());
                             hashmap.put("fullname",fullname);
-                            //hashmap.put("bio",userid);
-                            //hashmap.put("imageurl",userid);
+                            hashmap.put("bio","");
+                            hashmap.put("imageurl","https://firebasestorage.googleapis.com/v0/b/instagram-clone-5e03a.appspot.com/o/logo_icon.png?alt=media&token=8945eb73-642f-4644-8ddd-087b12d19f29");
 
                             reference.setValue(hashmap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
@@ -124,7 +124,7 @@ public class RegisterActivity extends AppCompatActivity {
                             });
                         } else{
                             progressDialog.dismiss();
-                            Toast.makeText(RegisterActivity.this, "You can't register with this emial and password", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

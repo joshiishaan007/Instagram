@@ -1,24 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/white">
 
-    <EditText
-        android:id="@+id/search_bar"
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/bar"
+        android:background="?android:attr/windowBackground">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/toolbar"
+            android:background="?android:attr/windowBackground">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_search"/>
+            
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Search"
+                android:background="@android:color/transparent"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginEnd="10dp"
+                android:id="@+id/search_bar"/>
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Search"
-        android:drawableStart="@drawable/ic_search"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:singleLine="true" />
+        android:layout_below="@id/bar"
+        android:id="@+id/recycler_view"/>
 
-    <ListView
-        android:id="@+id/suggestions_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="@color/colorBlack"
-        android:dividerHeight="1dp" />
-
-</LinearLayout>
+</RelativeLayout>

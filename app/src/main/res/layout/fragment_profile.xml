@@ -1,13 +1,68 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.profileFragment">
+    android:background="@color/white">
 
-    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:id="@+id/profile_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/logo_icon" />
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="profile" />
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/profile_image"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:text="Username"
+        android:textSize="18sp" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/bio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/username"
+        android:layout_toRightOf="@id/profile_image"
+        android:layout_marginStart="16dp"
+        android:text="Bio" />
+
+    <TextView
+        android:id="@+id/posts_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bio"
+        android:layout_toLeftOf="@id/followers_count"
+        android:layout_marginStart="16dp"
+        android:text="Posts" />
+
+    <TextView
+        android:id="@+id/followers_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bio"
+        android:layout_toLeftOf="@id/following_count"
+        android:layout_marginStart="16dp"
+        android:text="Followers" />
+
+    <TextView
+        android:id="@+id/following_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bio"
+        android:layout_toRightOf="@id/followers_count"
+        android:layout_marginStart="16dp"
+        android:text="Following" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/posts_grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/posts_count"
+        android:layout_marginTop="16dp" />
+
+</RelativeLayout>
