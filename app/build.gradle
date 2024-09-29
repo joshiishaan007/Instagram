@@ -15,6 +15,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true;
     }
 
     buildTypes {
@@ -33,9 +34,11 @@ dependencies {
 
     implementation libs.hdodenhof.circleimageview
     implementation libs.glide
+//    implementation
 
-//    implementation libs.theartofdev.android.image.cropper
 
+
+    implementation libs.multidex
     implementation libs.appcompat
     implementation libs.material
     implementation libs.activity
