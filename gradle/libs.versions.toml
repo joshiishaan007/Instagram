@@ -5,6 +5,7 @@ androidImageCropperVersion = "2.8.0"
 circleimageview = "1.4.0"
 circleimageviewVersion = "3.1.0"
 design = "28.0.0"
+githubAndroidImageCropper = "1.0.0"
 glide = "4.8.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -21,10 +22,12 @@ firebaseFirestore = "25.1.0"
 multidex = "2.0.1"
 supportV4 = "28.0.0"
 ucrop = "2.2.8"
+ucropVersion = "2.2.9"
 
 [libraries]
 android-image-cropper = { module = "com.theartofved.edmodo:android-image-cropper", version.ref = "androidImageCropper" }
 circleimageview = { module = "com.github.bumptech.glide:circleimageview", version.ref = "circleimageview" }
+darshankumarpatel-android-image-cropper = { module = "com.github.darshankumarpatel:android-image-cropper", version.ref = "githubAndroidImageCropper" }
 edmodo-android-image-cropper = { module = "com.theartofved.edmodo:android-image-cropper" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 hdodenhof-circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageviewVersion" }
@@ -44,6 +47,7 @@ support-design = { module = "com.android.support:design", version.ref = "design"
 support-v4 = { module = "com.android.support:support-v4", version.ref = "supportV4" }
 theartofdev-android-image-cropper = { module = "com.theartofdev.edmodo:android-image-cropper", version.ref = "androidImageCropperVersion" }
 ucrop = { module = "com.github.yalantis:ucrop", version.ref = "ucrop" }
+ucrop-v229 = { module = "com.github.yalantis:ucrop", version.ref = "ucropVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
