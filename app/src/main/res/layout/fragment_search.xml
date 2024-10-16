@@ -14,19 +14,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/toolbar"
-            android:background="?android:attr/windowBackground">
+            android:background="?android:attr/windowBackground"
+            android:layout_marginTop="30dp">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_search"/>
+                android:src="@drawable/ic_search_light"/>
             
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Search"
                 android:background="@android:color/transparent"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginEnd="10dp"
                 android:id="@+id/search_bar"/>

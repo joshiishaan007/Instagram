@@ -1,5 +1,6 @@
 package com.example.instagram.fragment;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,8 +14,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.example.instagram.MainActivity;
 import com.example.instagram.R;
+import com.example.instagram.StartActivity;
 import com.example.instagram.adapter.UserAdapter;
 import com.example.instagram.model.User;
 import com.google.firebase.database.DataSnapshot;
@@ -31,8 +35,8 @@ import java.util.List;
 public class searchFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private UserAdapter userAdapter;
     private List<User> mUsers;
+    private UserAdapter userAdapter;
 
     EditText search_bar;
 
@@ -47,11 +51,12 @@ public class searchFragment extends Fragment {
 
         search_bar = view.findViewById(R.id.search_bar);
 
-        mUsers = new ArrayList <>();
+        mUsers = new ArrayList<>();
         userAdapter = new UserAdapter(getContext(),mUsers);
         recyclerView.setAdapter(userAdapter);
 
         readUsers();
+
         search_bar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -61,6 +66,8 @@ public class searchFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 searchUsers(charSequence.toString().toLowerCase());
+//                Toast.makeText(getActivity(), charSequence.toString().toLowerCase(), Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -77,14 +84,18 @@ public class searchFragment extends Fragment {
                 .startAt(s)
                 .endAt(s+"\uf8ff");
 
+//        Toast.makeText(getActivity(), query.toString(), Toast.LENGTH_SHORT).show();
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 mUsers.clear();
-                for(DataSnapshot ss:snapshot.getChildren()){
+                for(DataSnapshot ss : snapshot.getChildren()){
+
                     User user = ss.getValue(User.class);
+
                     mUsers.add(user);
                 }
+
                 userAdapter.notifyDataSetChanged();
             }
 
@@ -102,10 +113,11 @@ public class searchFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(search_bar.getText().toString().equals("")){
                     mUsers.clear();
-                    for(DataSnapshot ss:snapshot.getChildren()){
+                    for(DataSnapshot ss: snapshot.getChildren()){
                         User user = ss.getValue(User.class);
                         mUsers.add(user);
                     }
+
                     userAdapter.notifyDataSetChanged();
                 }
             }
