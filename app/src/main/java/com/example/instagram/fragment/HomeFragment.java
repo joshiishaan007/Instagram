@@ -57,7 +57,7 @@ public class HomeFragment extends Fragment {
         followinglist = new ArrayList<>();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Follow")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .child("Following");
+                .child("following");
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
