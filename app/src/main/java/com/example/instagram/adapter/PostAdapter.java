@@ -1,16 +1,21 @@
 package com.example.instagram.adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.instagram.fragment.PostDetailFragment;
+import com.example.instagram.fragment.profileFragment;
 import com.example.instagram.model.User;
 import com.example.instagram.R;
 import com.example.instagram.model.Post;
@@ -47,7 +52,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        Post post = mpost.get(position);
+        final Post post = mpost.get(position);
+
         Glide.with(mcontext).load(post.getPostimage()).into(holder.post_image);
 
         if(post.getDescription().equals("")){
@@ -62,6 +68,55 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         isLiked(post.getPostid(),holder.like);
         numberOfLikes(holder.likes, post.getPostid());
         isSaved(post.getPostid(),holder.save);
+
+        holder.image_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor editor = mcontext.getSharedPreferences("PREFS",Context.MODE_PRIVATE).edit();
+                editor.putString("profileid", post.getPublisher());
+                editor.apply();
+
+                ((FragmentActivity)mcontext).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
+                ,new profileFragment()).commit();
+            }
+        });
+
+        holder.username.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor editor = mcontext.getSharedPreferences("PREFS",Context.MODE_PRIVATE).edit();
+                editor.putString("profileid", post.getPublisher());
+                editor.apply();
+
+                ((FragmentActivity)mcontext).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
+                        ,new profileFragment()).commit();
+            }
+        });
+
+        holder.publisher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor editor = mcontext.getSharedPreferences("PREFS",Context.MODE_PRIVATE).edit();
+                editor.putString("profileid", post.getPublisher());
+                editor.apply();
+
+                ((FragmentActivity)mcontext).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
+                        ,new profileFragment()).commit();
+            }
+        });
+
+//        holder.post_image.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                SharedPreferences.Editor editor = mcontext.getSharedPreferences("PREFS",Context.MODE_PRIVATE).edit();
+//                editor.putString("postid", post.getPostid());
+//                //Toast.makeText(mcontext, "hello", Toast.LENGTH_SHORT).show();
+//                editor.apply();
+//
+//                ((FragmentActivity)mcontext).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
+//                        ,new PostDetailFragment()).commit();
+//            }
+//        });
 
         holder.save.setOnClickListener(new View.OnClickListener() {
             @Override
