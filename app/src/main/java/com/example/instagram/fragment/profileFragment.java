@@ -39,10 +39,14 @@ import java.util.List;
 
 public class profileFragment extends Fragment {
 
-
     ImageView image_profile, options;
     TextView posts, followers, following, bio, fullname, username;
     Button edit_profile;
+
+    private List<String> mySaves;
+    RecyclerView recyclerView_saves;
+    MyPhotoAdapter myPhotoAdapter_saves;
+    List<Post> postList_saves;
 
     RecyclerView recyclerView;
     MyPhotoAdapter myPhotoAdapter;
@@ -84,10 +88,22 @@ public class profileFragment extends Fragment {
         myPhotoAdapter = new MyPhotoAdapter(getContext(),postList);
         recyclerView.setAdapter(myPhotoAdapter);
 
+        recyclerView_saves = view.findViewById(R.id.recycler_view_save);
+        recyclerView_saves.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager_saves = new GridLayoutManager(getContext(),3);
+        recyclerView_saves.setLayoutManager(linearLayoutManager_saves);
+        postList_saves = new ArrayList<>();
+        myPhotoAdapter_saves = new MyPhotoAdapter(getContext(),postList_saves);
+        recyclerView_saves.setAdapter(myPhotoAdapter_saves);
+
+        recyclerView.setVisibility(View.VISIBLE);
+        recyclerView_saves.setVisibility(View.GONE);
+
         userInfo();
         getFollowers();
         getNumberOfPosts();
         myPhotos();
+        mySaves();
 
         if(profileid.equals(firebaseUser.getUid()))
             edit_profile.setText("Edit Profile");
@@ -114,6 +130,22 @@ public class profileFragment extends Fragment {
                     FirebaseDatabase.getInstance().getReference().child("Follow").child(profileid)
                             .child("followers").child(firebaseUser.getUid()).removeValue();
                 }
+            }
+        });
+
+        my_photos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recyclerView.setVisibility(View.VISIBLE);
+                recyclerView_saves.setVisibility(View.GONE);
+            }
+        });
+
+        saved_photos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recyclerView.setVisibility(View.GONE);
+                recyclerView_saves.setVisibility(View.VISIBLE);
             }
         });
 
@@ -245,5 +277,51 @@ public class profileFragment extends Fragment {
             }
         });
 
+    }
+
+    private void mySaves(){
+        mySaves = new ArrayList<>();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Saves")
+                .child(firebaseUser.getUid());
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ss: snapshot.getChildren()){
+                    mySaves.add(ss.getKey());
+                }
+                readSaves();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void readSaves(){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                postList_saves.clear();
+                for(DataSnapshot ss: snapshot.getChildren()){
+                    Post post = ss.getValue(Post.class);
+
+                    for(String id: mySaves){
+                        if(post.getPostid().equals(id)){
+                            postList_saves.add(post);
+                        }
+                    }
+                }
+                myPhotoAdapter_saves.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
